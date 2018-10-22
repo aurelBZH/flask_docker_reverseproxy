@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - 8008:8008
+    depends_on:
+      - flask_min
+    networks:  
+      - web_net
+
+  flask_min:
+    build: .
+    image: flask_min
+    container_name: flask_min
+    expose:
+      - "8008"
+    networks:  
+      - web_net
+    
+
+networks:
+  web_net:
+    driver: bridge
